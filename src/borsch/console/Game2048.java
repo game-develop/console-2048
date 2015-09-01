@@ -17,6 +17,7 @@ public class Game2048 {
     private Scanner scanner;
     private Random random;
     private boolean running;
+    private int score;
 
     public Game2048(){
         this(4);
@@ -28,14 +29,18 @@ public class Game2048 {
         this.running = true;
         this.points = new int[FIELD_SIZE][FIELD_SIZE];
         this.random = new Random();
+        this.score = 0;
         random();
     }
 
     public void run(){
-        while (isRunning()){
+        while (isRunning() && !isWin()){
             updateTable();
             action();
             random();
+        }
+        if(isWin()){
+            pln("Yeah!!!");
         }
     }
 
@@ -49,6 +54,8 @@ public class Game2048 {
             moveRight();
         } else if(input.equalsIgnoreCase("a")){
             moveLeft();
+        } else {
+            pln("Invalid input");
         }
     }
 
@@ -57,6 +64,8 @@ public class Game2048 {
         for (int i = 0; i < FIELD_SIZE * SPACE * 2; ++i)
             p("-");
         pln();
+        pln("Score: " + score);
+
         for(int i = 0; i < FIELD_SIZE; ++i){
             pln();
             for(int j = 0; j < FIELD_SIZE; ++j){
@@ -81,6 +90,20 @@ public class Game2048 {
 
     private void pln(){
         System.out.println();
+    }
+
+    private void pln(String s){
+        System.out.println(s);
+    }
+
+    public boolean isWin(){
+        for (int i = 0; i < FIELD_SIZE; ++i){
+            for(int j = 0; j < FIELD_SIZE; ++j){
+                if(points[i][j] == 2048)
+                    return true;
+            }
+        }
+        return false;
     }
 
     public boolean isRunning(){
@@ -123,6 +146,7 @@ public class Game2048 {
 
                 if(points[swapIndex][j] == points[i][j] && swapIndex != i){
                     points[swapIndex][j] *= 2;
+                    score += points[swapIndex][j];
                     points[i][j] = 0;
                 } else if(points[zero][j] == 0){
                     points[zero][j] = points[i][j];
@@ -147,6 +171,7 @@ public class Game2048 {
 
                 if(points[swapIndex][j] == points[i][j] && swapIndex != i){
                     points[swapIndex][j] *= 2;
+                    score += points[swapIndex][j];
                     points[i][j] = 0;
                 } else if(points[zero][j] == 0){
                     points[zero][j] = points[i][j];
@@ -171,6 +196,7 @@ public class Game2048 {
 
                 if(points[i][swapIndex] == points[i][j] && swapIndex != j){
                     points[i][swapIndex] *= 2;
+                    score += points[i][swapIndex];
                     points[i][j] = 0;
                 } else if(points[i][zero] == 0){
                     points[i][zero] = points[i][j];
@@ -195,6 +221,7 @@ public class Game2048 {
 
                 if(points[i][swapIndex] == points[i][j] && swapIndex != j){
                     points[i][swapIndex] *= 2;
+                    score += points[i][swapIndex];
                     points[i][j] = 0;
                 } else if(points[i][zero] == 0){
                     points[i][zero] = points[i][j];
