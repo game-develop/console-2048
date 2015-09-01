@@ -69,7 +69,28 @@ public class Game2048 {
     }
 
     public boolean isRunning(){
-        return this.running;
+        running = checkIfGameIsRunning();
+        return running;
+    }
+
+    private boolean checkIfGameIsRunning(){
+        for(int i = 0; i < FIELD_SIZE - 1; ++i){
+            for(int j = 0; j < FIELD_SIZE; ++j){
+                if(points[i][j] == points[i+1][j])
+                    return true;
+
+                if(points[i][j] == 0)
+                    return true;
+            }
+        }
+
+        for(int i = 0; i < FIELD_SIZE; ++i){
+            for(int j = 0; j < FIELD_SIZE - 1; ++j){
+                if(points[i][j] == points[i][j+1])
+                    return true;
+            }
+        }
+        return false;
     }
 
     private void moveUp(){
@@ -188,6 +209,6 @@ public class Game2048 {
             TWO = 2,
             FOUR = 4,
             SPACE = 6,
-            FIELD_SIZE = 4;
+            FIELD_SIZE = 6;
 
 }
