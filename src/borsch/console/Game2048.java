@@ -11,12 +11,19 @@ import java.util.Scanner;
  */
 public class Game2048 {
 
+    private final int FIELD_SIZE;
+
     private final int[][] points;
     private Scanner scanner;
     private Random random;
     private boolean running;
 
     public Game2048(){
+        this(4);
+    }
+
+    public Game2048(int gridSize){
+        this.FIELD_SIZE = gridSize;
         this.scanner = new Scanner(System.in);
         this.running = true;
         this.points = new int[FIELD_SIZE][FIELD_SIZE];
@@ -208,7 +215,6 @@ public class Game2048 {
     private static final int
             TWO = 2,
             FOUR = 4,
-            SPACE = 6,
-            FIELD_SIZE = 6;
+            SPACE = 6;
 
 }
