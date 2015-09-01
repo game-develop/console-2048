@@ -45,7 +45,7 @@ public class Game2048 {
         for(int i = 0; i < FIELD_SIZE; ++i){
             pln();
             for(int j = 0; j < FIELD_SIZE; ++j){
-                pf("%" + SPACE + "s |", points[i][j]);
+                pf("%" + SPACE + "s |", points[i][j] == 0 ? "" : points[i][j]);
             }
             pln();
             if(i < FIELD_SIZE - 1) {
