@@ -31,7 +31,15 @@ public class Game2048 {
         random();
     }
 
-    public void action(){
+    public void run(){
+        while (isRunning()){
+            updateTable();
+            action();
+            random();
+        }
+    }
+
+    private void action(){
         String input = scanner.next();
         if(input.equalsIgnoreCase("w")){
             moveUp();
@@ -44,7 +52,7 @@ public class Game2048 {
         }
     }
 
-    public void updateTable(){
+    private void updateTable(){
         pln();
         for (int i = 0; i < FIELD_SIZE * SPACE * 2; ++i)
             p("-");
@@ -196,7 +204,7 @@ public class Game2048 {
         }
     }
 
-    public void random(){
+    private void random(){
         boolean end = false;
         int i = 0, j = 0;
         while(!end){
